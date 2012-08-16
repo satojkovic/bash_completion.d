@@ -1,0 +1,21 @@
+_brew()
+{
+     	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	opts_long="--cache --cellar --config --prefix --repository --version"
+        opts=" audit cat cleanup create deps diy doctor edit fetch home \
+               info install ln link ls list log missing options outdated \
+               prune rm remove uninstall search tap test unlink untap \
+               update upgrade uses versions"
+
+        if [[ ${cur} == --* ]] ; then
+           COMPREPLY=( $(compgen -W "${opts_long}" -- ${cur}) )
+           return 0
+        else
+           COMPREPLY=( $(compgen -W "${opts} ${opts_long}" -- ${cur}) )
+           return 0
+        fi
+}
+complete -F _brew brew
